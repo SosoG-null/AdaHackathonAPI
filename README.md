@@ -81,3 +81,10 @@ Methods:
 
 - Post: Check user name and password
 - TODO: Sign up, sign out, actually check password, ...
+
+
+#### other TODOs:
+- chatbot
+- ethnicites
+- location tracking
+- local help finder
