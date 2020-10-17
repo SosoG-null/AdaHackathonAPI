@@ -52,3 +52,10 @@ print (result.status_code)
 
 result=requests.get(adress+"messages")
 print (result.json())
+
+# login test
+result=requests.post(adress+"login",{"user_id":1, "password":"1234"})
+print (result.status_code)
+
+result=requests.post(adress+"login",{"user_id":1, "password":"bad"})
+print (result.status_code)

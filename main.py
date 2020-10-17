@@ -26,16 +26,14 @@ user_put_args.add_argument("gender", type=str, help="Gender of the user")
 user_put_args.add_argument("views", type=int, help="Views  of the user's page")
 user_put_args.add_argument("password", type=str, help="You must provide a password")
 
-class UserDTO:
-    def __init__(self, name, views, gender):
-        self.name = name
-        self.views= views
-        self.gender =gender
-
+login_put_args = reqparse.RequestParser()
+# In a real system, we would use a user name
+login_put_args.add_argument("user_id", type=int, help="the identifier of the user is required", required=True)
+login_put_args.add_argument("password", type=str, help="You must provide a password", required=True)
 
 def get_safe_user_info(id):
     user=users[id]
-    safeuser = UserDTO(user["name"],user["views"],user["gender"])
+    safeuser = {"name":user["name"], "views":user["views"], "gender":user["gender"]}
     return (safeuser)
 
 
@@ -78,15 +76,25 @@ class Message(Resource):
 
 class Users(Resource):
     def get(self):
-        # safeusers={}
-        # for id in users.keys():
-            # safeusers[id]=get_safe_user_info(id)
-        return {"data":users}, 200
+        safeusers={}
+        for id in users.keys():
+            safeusers[id]=get_safe_user_info(id)
+        return safeusers, 200
     def post(self):
         args = user_put_args.parse_args()
         id = args ["user_id"]
         users[id] = args
         return users[id], 201
+
+class Login(Resource):
+    def post(self):
+        args = login_put_args.parse_args()
+        if args ["user_id"] ==1 and args ["password"] == "1234":
+            return {}, 200
+        return {"message": "Invalid name/password."}, 401
+
+
+
 
 class Likes(Resource):
     def post(self, id):
@@ -111,6 +119,7 @@ api.add_resource(Likes, "/messages/<int:id>/likes")
 api.add_resource(Message, "/messages/<int:id>")
 api.add_resource(Messages, "/messages")
 api.add_resource(Users, "/users")
+api.add_resource(Login, "/login")
 
 # Used to start the program when calling python main.py on the command line
 if __name__ == "__main__":
