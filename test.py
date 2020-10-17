@@ -27,7 +27,7 @@ print (result.json())
 
 test_data = {"message_id":1, "topic": "Test", "body": "A clever post", "author": "soso"}
 test_data2 = {"message_id":2, "topic": "Test2", "body": "A clever post2", "author": "soso", "views":10}
-test_data3 = {"user_id":2, "name":"Soso", "age":"thirteen", "gender":"female", "views":10}
+test_data3 = {"user_id":2, "name":"Soso", "age":13, "gender":"female", "views":10, "password":"1234"}
 
 result=requests.post(adress+"messages",test_data)
 print (result.json())

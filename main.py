@@ -21,9 +21,23 @@ message_put_args.add_argument("likes", type=int, help="likes of the message")
 user_put_args = reqparse.RequestParser()
 user_put_args.add_argument("user_id", type=int, help="the identifier of the user is required", required=True)
 user_put_args.add_argument("name", type=str, help="The name of the user is required", required=True)
-user_put_args.add_argument("age", type=str, help="The age of the user is required", required=True)
+user_put_args.add_argument("age", type=int, help="The age of the user is required", required=True)
 user_put_args.add_argument("gender", type=str, help="Gender of the user")
 user_put_args.add_argument("views", type=int, help="Views  of the user's page")
+user_put_args.add_argument("password", type=str, help="You must provide a password")
+
+class UserDTO:
+    def __init__(self, name, views, gender):
+        self.name = name
+        self.views= views
+        self.gender =gender
+
+
+def get_safe_user_info(id):
+    user=users[id]
+    safeuser = UserDTO(user["name"],user["views"],user["gender"])
+    return (safeuser)
+
 
 def message_not_found (id):
     if id not in messages:
@@ -36,7 +50,7 @@ class Messages(Resource):
     def post(self): # Define what happens when Messages receives a "POST" request
         args = message_put_args.parse_args()
         id = args["message_id"]
-        # Check if any views were pased in
+        # Check if any views were parsed in
         views = args["views"]
         if not views:
             views = 0
@@ -64,6 +78,9 @@ class Message(Resource):
 
 class Users(Resource):
     def get(self):
+        # safeusers={}
+        # for id in users.keys():
+            # safeusers[id]=get_safe_user_info(id)
         return {"data":users}, 200
     def post(self):
         args = user_put_args.parse_args()
