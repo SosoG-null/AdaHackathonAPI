@@ -5,8 +5,12 @@ from flask_restful import Api, reqparse, Resource, abort
 # This line is required to work with Flask. 
 app = Flask(__name__)
 api = Api(app)
+# This is out prototype 'session' information.
 
-# For now, store our forum messages in memory... but not for long!
+IsLoggedIn = False
+username = ""
+
+# For now, store our forum messages in memory
 messages={}
 users={}
 # Define the data format of our message put requests
@@ -14,7 +18,7 @@ message_put_args = reqparse.RequestParser()
 message_put_args.add_argument("message_id", type=int, help="the identifier of the message is required", required=True)
 message_put_args.add_argument("topic", type=str, help="Topic of the message is required", required=True)
 message_put_args.add_argument("body", type=str, help="Body  of the message is required", required=True)
-message_put_args.add_argument("author", type=str, help="Author  of the message")
+# message_put_args.add_argument("author", type=str, help="Author  of the message")
 message_put_args.add_argument("views", type=int, help="Views  of the message")
 message_put_args.add_argument("likes", type=int, help="likes of the message")
 
@@ -28,7 +32,7 @@ user_put_args.add_argument("password", type=str, help="You must provide a passwo
 
 login_put_args = reqparse.RequestParser()
 # In a real system, we would use a user name
-login_put_args.add_argument("user_id", type=int, help="the identifier of the user is required", required=True)
+login_put_args.add_argument("username", type=str, help="the identifier of the user is required", required=True)
 login_put_args.add_argument("password", type=str, help="You must provide a password", required=True)
 
 def get_safe_user_info(id):
@@ -36,16 +40,22 @@ def get_safe_user_info(id):
     safeuser = {"name":user["name"], "views":user["views"], "gender":user["gender"]}
     return (safeuser)
 
-
+# Standard request validations
 def message_not_found (id):
     if id not in messages:
         abort(404, message="404:Message ID invalid")
+
+def user_not_logged_in ():
+    if not IsLoggedIn:
+        abort(401, message="You are not authorised to perfom this operation.")
+
 # Each resource should be declared as a class (an object that will group functions and variables and do something for us)
 # It inherits from Resource as that gives us access to API methods to keep development easy.
 class Messages(Resource):
     def get(self): # Define what happens when Messages receives a "GET" request
         return {"data": messages },200
     def post(self): # Define what happens when Messages receives a "POST" request
+        user_not_logged_in ()
         args = message_put_args.parse_args()
         id = args["message_id"]
         # Check if any views were parsed in
@@ -59,6 +69,7 @@ class Messages(Resource):
         # Save the correct number of views in the message to be stored
         msg["views"] = views
         msg["likes"] = likes
+        msg["author"] = username
         messages[id] = msg
         return messages[id], 201 # return added data with Created status code
     
@@ -69,6 +80,7 @@ class Message(Resource):
         message_not_found (id)
         return messages[id], 200
     def delete(self, id):
+        user_not_logged_in ()
         message_not_found (id)
         del messages[id]
         return {}, 204
@@ -89,15 +101,24 @@ class Users(Resource):
 class Login(Resource):
     def post(self):
         args = login_put_args.parse_args()
-        if args ["user_id"] ==1 and args ["password"] == "1234":
+        verifyusername = args ["username"]
+        global IsLoggedIn
+        global username
+        if verifyusername.lower() == "soso" and args ["password"] == "1234":
+            IsLoggedIn = True
+            username = verifyusername
             return {}, 200
-        return {"message": "Invalid name/password."}, 401
+        else:
+            IsLoggedIn = False
+            username = ""
+        return {"message": "We can't log you in."}, 401
 
 
 
 
 class Likes(Resource):
     def post(self, id):
+        user_not_logged_in ()
         msg=messages[id]
         likes=msg["likes"]
         if not likes:

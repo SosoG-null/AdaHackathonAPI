@@ -1,0 +1,47 @@
+adalovelacehackathonteam28@gmail.com 
+
+7thTr3lloLovelace                                          
+
+Scene 1(Serene): Hi! Thank you for joining us today to listen to our pitch. 
+
+Scene 2(Shreyas): Hi, I’m Shreyas and I was the project manager and front-end developer. 
+
+Scene 2(Solange): Hello! I’m Solange and I am the Back-End Developer and research manager. 
+
+Scene 2(Serene): My name’s Serene and I’m the Design Thinker. 
+
+Scene 3(Solange): So, what is On the Same Page? In essence, it’s a mental health app for those from BAME communities to connect and get the help they need to deal with the racism they face daily. 
+
+Scene 4(Serene) BAME people are constantly discriminated against, mistrusted, judged and stereotyped and they have been hit the hardest in the Covid-19 pandemic. 
+
+Scene 5(Serene) Because of this, it’s extremely important that BAME people have a support system they can rely on. On the same page wants to help them when they feel discriminated against and make sure they can connect when they feel excluded. 
+
+Scene 6(Shreyas): A typical User Journey goes like this... The user feels exclusion and searches for a solution and finds our app. They create an account, and get motivated and encourage others to join. 
+
+Scene 7(Solange): Our plan on how this app will keep itself running is a Patreon as well as some sort of optional subscription for extra perks like the ability to boost posts. We haven’t opted for the classic ads to make money, as many people find those irritating. 
+
+Scene 8(Solange): Of course, as this is a forum handling sensitive information like emails and passwords, there is always the risk of people attempting to hack accounts. To combat this, we will be implementing two factor authentication and password guidelines. 
+
+Scene 9(Serene): As our research demonstrates, barely anyone has an online support system and almost half of the people interviewed have no support system whatsoever as shown in the graph on this slide. This ensures that many people will choose to use our app and that there won’t be a lot of competition to go against. 
+
+Scene 10(Shreyas): Our prototype is a simulation of what our app will look like. Our app contains a profile page, a sign in page and many more helpful tools.  
+
+Scene 11(Shreyas): Thank you for listening and we wish good luck to 10 other teams in the final. Thank you to all the wonderful mentors who have helped with our project. Any questions? 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+Question Key: 
+
+Serene will answer questions about design thinking and general. 
+
+Shreyas will answer questions about the prototype and teamwork. 
+
+Solange will answer 

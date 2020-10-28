@@ -25,8 +25,22 @@ print (result.json())
 # student1.introduce()
 # student2.introduce()
 
-test_data = {"message_id":1, "topic": "Test", "body": "A clever post", "author": "soso"}
-test_data2 = {"message_id":2, "topic": "Test2", "body": "A clever post2", "author": "soso", "views":10}
+# login test
+print("Good login request")
+result=requests.post(adress+"login",{"username":"soso", "password":"1234"})
+print (result.status_code)
+
+print("Bad login request")
+result=requests.post(adress+"login",{"username":"soso", "password":"bad"})
+print (result.status_code)
+
+username=input("Please enter your username.\n")
+password=input("Please enter your password.\n")
+result=requests.post(adress+"login",{"username":username, "password":password})
+print (result.status_code)
+
+test_data = {"message_id":1, "topic": "Test", "body": "A clever post"}
+test_data2 = {"message_id":2, "topic": "Test2", "body": "A clever post2", "views":10}
 test_data3 = {"user_id":2, "name":"Soso", "age":13, "gender":"female", "views":10, "password":"1234"}
 
 result=requests.post(adress+"messages",test_data)
@@ -46,16 +60,10 @@ result=requests.post(adress+"users", test_data3)
 print (result.json())
 # print ("user added")
 
-print ("deleting message")
+print ("attempting to delete message")
 result=requests.delete(adress+"messages/2")
 print (result.status_code)
 
 result=requests.get(adress+"messages")
 print (result.json())
 
-# login test
-result=requests.post(adress+"login",{"user_id":1, "password":"1234"})
-print (result.status_code)
-
-result=requests.post(adress+"login",{"user_id":1, "password":"bad"})
-print (result.status_code)
