@@ -39,8 +39,8 @@ password=input("Please enter your password.\n")
 result=requests.post(adress+"login",{"username":username, "password":password})
 print (result.status_code)
 
-test_data = {"message_id":1, "topic": "Test", "body": "A clever post"}
-test_data2 = {"message_id":2, "topic": "Test2", "body": "A clever post2", "views":10}
+test_data = {"message_id":1, "title": "Test", "body": "A clever post"}
+test_data2 = {"message_id":2, "title": "Test2", "body": "A clever post2", "views":10}
 test_data3 = {"user_id":2, "name":"Soso", "age":13, "gender":"female", "views":10, "password":"1234"}
 
 result=requests.post(adress+"messages",test_data)
@@ -49,21 +49,21 @@ print (result.json())
 result=requests.post(adress+"messages",test_data2)
 print (result.json())
 
-result=requests.post(adress+"/messages/1/likes")
-print (result.json())
+# result=requests.post(adress+"/messages/1/likes")
+# # print (result())
 
-result=requests.get(adress+"messages")
-print (result.json())
-# print ("messsages added")
+# result=requests.get(adress+"messages")
+# print (result.json())
+# # print ("messsages added")
 
-result=requests.post(adress+"users", test_data3)
-print (result.json())
-# print ("user added")
+# result=requests.post(adress+"users", test_data3)
+# print (result.json())
+# # print ("user added")
 
-print ("attempting to delete message")
-result=requests.delete(adress+"messages/2")
-print (result.status_code)
+# print ("attempting to delete message")
+# result=requests.delete(adress+"messages/2")
+# print (result.status_code)
 
-result=requests.get(adress+"messages")
-print (result.json())
+# result=requests.get(adress+"messages")
+# print (result.json())
 
