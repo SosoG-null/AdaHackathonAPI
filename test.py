@@ -46,6 +46,10 @@ test_data3 = {"user_id":2, "name":"Soso", "age":13, "gender":"female", "views":1
 result=requests.post(adress+"messages",test_data)
 print (result.json())
 
+# result = requests.get(adress+"logout")
+# print (result.status_code)
+
+
 result=requests.post(adress+"messages",test_data2)
 print (result.json())
 

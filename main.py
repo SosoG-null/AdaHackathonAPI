@@ -126,6 +126,13 @@ class Login(Resource):
             username = ""
         return {"message": "We can't log you in."}, 401
 
+class Logout(Resource):
+    def get(self):
+        global username
+        global IsLoggedIn
+        username = ""
+        IsLoggedIn = False
+        return {}, 200
 
 
 
@@ -154,7 +161,7 @@ api.add_resource(Message, "/messages/<int:message_id>")
 api.add_resource(Messages, "/messages")
 api.add_resource(Users, "/users")
 api.add_resource(Login, "/login")
-
+api.add_resource(Logout, "/logout")
 # Used to start the program when calling python main.py on the command line
 if __name__ == "__main__":
     app.run(debug=True) # Remove debug = True for production
